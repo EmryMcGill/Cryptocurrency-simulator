@@ -25,7 +25,7 @@ def getPrice(user_input):
   return price
 
 def listofcurrency():
-  print('\nHere are some examples of crytocurrencies you can buy\nbitcoin\nethereum\nripple\nlitecoin\ntether\nlibra\nmonero\neos')
+  print('\nHere are some examples of crytocurrencies you can buy\nbitcoin\nethereum\nripple\nlitecoin\ntether\nmonero\neos')
 
 def buy(balence, portfolio):
   valid = False
@@ -133,8 +133,16 @@ def main(balence, portfolio):
     buy(balence, portfolio)
   if (inp == 'portfolio'):
     getPortfolio(balence, portfolio)
-  if (inp == 'get_price'):
-    print('$' + str(round(getPrice(input('Enter the currency to check the price: ')),2)))
+  if (inp == 'get price'):
+    valid = False
+    while valid!=True:
+      valid = True
+      try:
+        print('$' + str(round(getPrice(input('Enter the currency to check the price: ')),2)))
+      except:
+        print('enter a valid currency')
+        valid = False
+    main(balence, portfolio)
   if (inp == 'quit'):
     writefile=open("data",'w')
     writefile.write(str(balence)+'\n'+str(portfolio))
@@ -146,6 +154,9 @@ def main(balence, portfolio):
     listofcurrency()
   if (inp == 'reset'):
     reset()
+  if (inp == 'command list'):
+    print('\nbuy\nsell\nportfolio\nget price\nlist\nreset\ncommand list\nquit\n')
+    main(balence, portfolio)
   else:
     main(balence, portfolio)
 
@@ -156,10 +167,11 @@ balence = float(lines[0])
 portfolio = lines[1]
 portfolio = ast.literal_eval(portfolio)
 writefile.close()
-print(balence, portfolio)
 
-print('Welcome to the Cryptocurrency simulator\nYou get a starting cash balence of $100,000. You can use the following commands\n\nbuy\nsell\nportfolio\nget_price\nlist\nreset\nquit\n')
+print('Welcome to the Cryptocurrency simulator\nYou get a starting cash balence of $100,000. You can use the following commands\n\nbuy\nsell\nportfolio\nget price\nlist\nreset\ncommand list\nquit\n')
 
 main(balence, portfolio)
+
+
 
 
